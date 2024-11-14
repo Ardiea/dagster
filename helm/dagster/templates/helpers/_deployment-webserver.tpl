@@ -87,6 +87,11 @@ spec:
                 secretKeyRef:
                   name: {{ include "dagster.postgresql.secretName" . | quote }}
                   key: postgresql-password
+            - name: DAGSTER_PG_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "dagster.postgresql.secretName" . | quote }}
+                  key: postgresql-username
             # This is a list by default, but for backcompat it can be a map. As
             # a map it's written to the webserver-env configmap.
             {{- if and ($_.Values.dagsterWebserver.env) (kindIs "slice" $_.Values.dagsterWebserver.env) }}
